@@ -1,0 +1,18 @@
+#xbtn {
+  margin-top: 30px;
+  max-width: 300px;
+  margin-left: 160px;
+}
+
+#ProfileUpdateImage {
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 80px;
+}
+#ProfileChooseFile {
+  margin-top: 100px;
+  margin-left: 80px;
+}
+#ProfileImageMessage {
+  text-align: center;
+}

@@ -1,0 +1,13 @@
+package com.shopme.daos;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.shopme.entities.Product;
+import com.shopme.entities.User;
+
+public interface ProductDao extends JpaRepository<Product, Integer> {
+	Product findByProductName(String productName);
+	Product findByProductPrice(double productPrice);
+	Product findByProductDiscount(Double discountPrice);
+	Product findByProductId(int productId);
+}

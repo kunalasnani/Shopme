@@ -1,0 +1,109 @@
+package com.shopme.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.shopme.daos.CategoryDao;
+import com.shopme.daos.FeedbackDao;
+import com.shopme.daos.ProductDao;
+import com.shopme.daos.SubCategoryDao;
+import com.shopme.entities.Category;
+import com.shopme.entities.Feedback;
+import com.shopme.entities.Product;
+import com.shopme.entities.SubCategory;
+
+
+@Transactional
+@Service
+public class ProductServiceImpl {
+
+	@Autowired
+	private CategoryDao categoryDao;
+	@Autowired
+	private SubCategoryDao subCategoryDao;
+	@Autowired
+	private FeedbackDao feedbackDao;
+	@Autowired
+	private ProductDao productDao;
+	
+	public Category addCategory(Category newCategory) {
+		Category category = categoryDao.save(newCategory);
+		return category;
+	}
+
+	public Category findByCategoryName(String categoryName) {
+		Category category = categoryDao.findByCategoryName(categoryName);
+		return category;	
+	}
+
+//	public String deleteCategory(Category categoryName) {
+//		categoryDao.delete(categoryName);
+//		return "Category "+categoryName+" deleted successfully";
+//	}
+	
+	public SubCategory addSubCategory(SubCategory newSubCategory) {
+		SubCategory subCategory = subCategoryDao.save(newSubCategory);
+		return subCategory;
+	}
+
+	public SubCategory findBySubCategoryName(String subCategoryName) {
+		SubCategory subCategory = subCategoryDao.findBySubCategoryName(subCategoryName);
+		return subCategory;
+	}
+	
+	public Feedback addFeedback(Feedback newFeedback) {
+		Feedback feedback = feedbackDao.save(newFeedback);
+		return feedback;
+	}
+	
+	public Feedback findFeedbackByRating(Feedback newFeedback) {
+		Feedback feedback = feedbackDao.findByRating(newFeedback);
+		return feedback;
+	}
+	
+	 public Product addProduct(Product product) {
+			
+			return productDao.save(product);
+	}
+	 
+	 public Product findProductById(int id)
+	 {
+		 Product result=productDao.findByProductId(id);
+		 return result;
+	 }
+	 
+	 public Product findProductByName(String name)
+	 {
+		 Product result=productDao.findByProductName(name);
+		 return result;
+	 }
+	 
+	 public Product findProductByProductPrice( Double price)
+	 {
+		 Product productPrice =productDao.findByProductPrice(price);
+		 return productPrice;
+	 }
+	 public Product findProductByProductDiscountPrice( Double discountPrice)
+	 {
+		 Product productDiscountPrice =productDao.findByProductDiscount(discountPrice);
+		 return productDiscountPrice;
+	 }
+	 
+	 public Product deleteProductById(int id)
+	 {
+		 Product product = productDao.findByProductId(id);
+		 productDao.delete(product);
+		 return product;
+	 }
+	 
+//	
+//	public SubCategory findBySubCategoryName(String subCategoryName) {
+//		SubCategory subCategory = subCategoryDao.findSubCategoryByName(subCategoryName);
+//		return subCategory;
+//	}
+	
+	
+}

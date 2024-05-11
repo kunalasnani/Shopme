@@ -1,0 +1,15 @@
+h2 {
+  text-align: center;
+}
+
+#allproduct {
+  background-color: rgb(58, 126, 9);
+  color: aliceblue;
+}
+
+#bt {
+  margin-left: 18px;
+  padding-top: 1px;
+  padding-bottom: 0.5px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,14 @@
+package com.shopme.daos;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.shopme.entities.Address;
+import com.shopme.entities.User;
+
+public interface AddressDao  extends JpaRepository<Address, Integer>  {
+
+ Address findByAddressId(int id);
+ //List<Address> findByUserId(int id);
+}

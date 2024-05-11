@@ -1,0 +1,71 @@
+package com.shopme.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "address")
+public class Address {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private int addressId;
+	private String houseNo;
+	private String addressLine1;
+	private String addressLine2;
+	private String city;
+	private String state;
+	private int pincode;
+	// private int userId;
+
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	@JsonIgnoreProperties("addressList")
+	private User user;
+
+	public Address() {
+		super();
+	}
+	
+	public Address(int addressId, String houseNo, String addressLine1, String addressLine2, String city, String state,
+			int pincode) {
+		super();
+		this.addressId = addressId;
+		this.houseNo = houseNo;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+
+	}
+	
+	
+	/*
+	 * public int getUserId() { return userId; }
+	 */
+	/*
+	 * public void setAddressId(int addressId) { this.addressId = addressId; }
+	 */
+	
+
+	/*
+	 * public void setUserId(int userId) { this.userId = userId; }
+	 */
+
+	@Override
+	public String toString() {
+		return "Address [addressId=" + addressId + ", houseNo=" + houseNo + ", addressLine1=" + addressLine1
+				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", pincode=" + pincode
+				+ "]";
+	}
+
+	
+
+}

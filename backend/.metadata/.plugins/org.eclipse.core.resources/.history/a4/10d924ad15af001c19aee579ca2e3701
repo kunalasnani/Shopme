@@ -1,0 +1,94 @@
+package com.shopme.entities;
+
+import java.sql.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="cart")
+public class Cart {
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Id
+	private int cartId;
+	private int userId;
+	//@OneToMany(mappedBy = productId)
+	private int productId;
+	private int quantity;
+	private double finalPrice;
+	private Date date;
+	
+	public Cart() {
+		super();
+	}
+
+	public Cart(int cartId, int userId, int productId, int quantity, double finalPrice, Date date) {
+		super();
+		this.cartId = cartId;
+		this.userId = userId;
+		this.productId = productId;
+		this.quantity = quantity;
+		this.finalPrice = finalPrice;
+		this.date = date;
+	}
+
+	public int getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(int cartId) {
+		this.cartId = cartId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getFinalPrice() {
+		return finalPrice;
+	}
+
+	public void setFinalPrice(double finalPrice) {
+		this.finalPrice = finalPrice;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", userId=" + userId + ", productId=" + productId + ", quantity=" + quantity
+				+ ", finalPrice=" + finalPrice + ", date=" + date + "]";
+	}
+
+	
+}

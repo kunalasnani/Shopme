@@ -1,0 +1,182 @@
+package com.shopme.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.shopme.daos.AddressDao;
+import com.shopme.daos.UserDao;
+import com.shopme.dtos.Credentials;
+import com.shopme.entities.Address;
+import com.shopme.entities.User;
+
+@Transactional
+@Service
+public class UserServiceImpl {
+
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private AddressDao addressdao;
+
+//add user to db
+	public User saveUser(User newuser) {
+		User dbuser = userDao.findByEmail(newuser.getEmail());
+		if (dbuser != null) {
+			return null;
+		} else {
+			userDao.save(newuser);
+			return newuser;
+		}
+	}
+
+	// delete user
+	public User deleteUser(int id) {
+		User user = findUserById(id);
+		if (user == null) {
+			return null;
+		} else {
+			userDao.delete(user);
+			return user;
+		}
+	}
+
+	// find by mail
+	public User findUserByEmail(String email) {
+
+		User user = userDao.findByEmail(email);
+		return user;
+
+	}
+
+	// check mail and pass
+	public User findUserByEmailAndPassword(Credentials cred) {
+		User dbUser = userDao.findByEmail(cred.getEmail());
+
+		if (dbUser != null && cred.getEmail().equals(dbUser.getEmail())
+				&& cred.getPassword().equals(dbUser.getPassword())) {
+			User Result = dbUser;
+			return Result;
+		}
+
+		return null;
+
+	}
+
+//find by id
+	public User findUserById(int id) {
+		User profile = userDao.findByUserId(id);
+		return profile;
+	}
+
+	public User showProfileDetails(int id) {
+		User profiledetails = userDao.findByUserId(id);
+
+		if (profiledetails == null)
+			return null;
+		else {
+			return profiledetails;
+
+		}
+
+	}
+
+	public Address addAddress(Address address) {
+		addressdao.save(address);
+		return address;
+
+	}
+
+	// delete address by addressid
+	public Address deleteAddress(int id) {
+		Address deletedAddress = addressdao.findByAddressId(id);
+		if (deletedAddress == null) {
+			return null;
+		} else {
+			addressdao.delete(deletedAddress);
+			return deletedAddress;
+		}
+	}
+
+	/*
+	 * // show addressses public List<Address> findAddressByUserId(int id) { User
+	 * user = userDao.findByUserId(id); if (user == null) { return null; } else {
+	 * List<Address> addresses = addressdao.findByUserId(id); return addresses; }
+	 * 
+	 * }
+	 */
+
+	// Update user basic info
+	public User updateUser(int id, User userDetails) {
+
+		User updateuser = userDao.findByUserId(id);
+		if (updateuser == null) {
+			return null;
+		} else {
+			updateuser.setFirstName(userDetails.getFirstName());
+			updateuser.setLastName(userDetails.getLastName());
+			updateuser.setMobile(userDetails.getMobile());
+			updateuser.setPassword(userDetails.getPassword());
+			updateuser.setGender(userDetails.getGender());
+			updateuser.setProfileImg(userDetails.getProfileImg());
+			updateuser.setWalletBalance(userDetails.getWalletBalance());
+			// User updatedUser = userService.saveUser(user);
+			return updateuser;
+
+		}
+	}
+
+	// update wallet balance
+	public User updateWallet(int id, User userDetailsmoney) {
+
+		User updateuserMoney = userDao.findByUserId(id);
+		if (updateuserMoney == null) {
+			return null;
+		} else {
+			double balance = updateuserMoney.getWalletBalance();
+			balance = userDetailsmoney.getWalletBalance() + balance;
+			updateuserMoney.setWalletBalance(balance);
+
+			return updateuserMoney;
+		}
+
+	}
+
+	public User deductWallet(int id, User userMoney) {
+		User deductuserMoney = userDao.findByUserId(id);
+		if (deductuserMoney == null)
+		{
+			return userMoney;
+		}
+		else 
+		{
+			double balance = deductuserMoney.getWalletBalance();
+			balance =  balance - userMoney.getWalletBalance() ;
+			if(balance < 0)
+			{
+				return null;
+			}
+			{
+				deductuserMoney.setWalletBalance(balance);
+				return deductuserMoney;
+			}
+		}
+	}
+
+	public User updatePass(int id, User userpass) {
+		User userp = userDao.findByUserId(id);
+		if (userp == null) {
+			return null;
+		} else {
+			String pass = userpass.getPassword();
+			userp.setPassword(pass);
+
+			return userp;
+		}
+
+	}
+
+	}
+
